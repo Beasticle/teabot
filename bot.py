@@ -15,7 +15,6 @@ teaType = []
 @client.event
 async def on_ready():
     print('Bot is ready.')
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Julian sip tea"))
 
 @client.command()
 async def test(ctx):
@@ -45,7 +44,7 @@ async def on_message(message):
         await channel.send('Added your cup to the list!' .format(chk))
         
         msgList = str(msg2).split('drank ')
-        teaCount =+ 1
+        teaCount += 1
         #print(msgList)
         msg = str(msgList[1])
         teaType.append(msg)
@@ -55,6 +54,12 @@ async def on_message(message):
        
 async def backgroundTask():
     global teaCount
+    if teaCount < 2:
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Julian sip tea"))
+    elif 2 < teaCount < 4:
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Julian drink tea"))
+    elif 4 < teaCount:
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Julian chug tea"))
     if currentHr == "00":
         teaCount = 0
         teaType = []
