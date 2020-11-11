@@ -1,8 +1,9 @@
 import discord
+from discord import activity
+from discord.emoji import Emoji
 from discord import channel, message
 from discord.ext import commands
 import time
-
 from discord.ext.commands.bot import Bot
 
 client = commands.Bot(command_prefix= '$')
@@ -14,6 +15,7 @@ teaType = []
 @client.event
 async def on_ready():
     print('Bot is ready.')
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Julian sip tea"))
 
 @client.command()
 async def test(ctx):
@@ -52,6 +54,7 @@ async def on_message(message):
     await client.process_commands(message)
        
 async def backgroundTask():
+    global teaCount
     if currentHr == "00":
         teaCount = 0
         teaType = []
