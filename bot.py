@@ -15,6 +15,15 @@ teaType = []
 @client.event
 async def on_ready():
     print('Bot is ready.')
+    while True:
+        if teaCount < 2:
+            await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Julian sip tea"))
+        elif 2 < teaCount < 4:
+            await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Julian drink tea"))
+        elif 4 < teaCount:
+            await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Julian chug tea"))
+            
+    await client.process_commands(message)
 
 @client.command()
 async def test(ctx):
@@ -54,17 +63,10 @@ async def on_message(message):
        
 async def backgroundTask():
     global teaCount
-    while True:
-        if teaCount < 2:
-            await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Julian sip tea"))
-        elif 2 < teaCount < 4:
-            await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Julian drink tea"))
-        elif 4 < teaCount:
-            await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="Julian chug tea"))
-        if currentHr == "00":
-            teaCount = 0
-            teaType = []
+    if currentHr == "00":
+        teaCount = 0
+        teaType = []
 
 
-backgroundTask()
+client.loop.create_task(backgroundTask())
 client.run("Nzc2MTc2NTc2MzAyODA5MTM5.X6xExA.UQshF_nnF8CfsasgfMjNCw4iLtQ")
