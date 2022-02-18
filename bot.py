@@ -69,4 +69,4 @@ async def backgroundTask():
 
 
 client.loop.create_task(backgroundTask())
-client.run("Nzc2MTc2NTc2MzAyODA5MTM5.X6xExA.UQshF_nnF8CfsasgfMjNCw4iLtQ")
+client.run("change this")
